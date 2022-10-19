@@ -17,6 +17,10 @@ import net.minecraft.SharedConstants;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.concurrent.CompletableFuture;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Level;
 import org.bleachhack.command.CommandManager;
 import org.bleachhack.command.CommandSuggestor;
@@ -36,6 +40,8 @@ import org.bleachhack.util.io.BleachJsonHelper;
 import org.bleachhack.util.io.BleachOnlineMang;
 
 public class BleachHack implements ModInitializer {
+
+	public static final Item LIVEOVERFLOW = new Item(new Item.Settings().group(ItemGroup.MISC));
 
 	private static BleachHack instance = null;
 
@@ -67,6 +73,8 @@ public class BleachHack implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		long initStartTime = System.currentTimeMillis();
+
+		Registry.register(Registry.ITEM, new Identifier("bleachhack", "liveoverflow_logo"), LIVEOVERFLOW);
 
 		instance = this;
 		watermark = new Watermark();

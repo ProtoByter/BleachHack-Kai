@@ -10,6 +10,7 @@ package org.bleachhack.module;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import org.bleachhack.BleachHack;
 
 public enum ModuleCategory {
 	PLAYER(new ItemStack(Items.ARMOR_STAND)),
@@ -18,7 +19,8 @@ public enum ModuleCategory {
 	MOVEMENT(new ItemStack(Items.POTION)),
 	EXPLOITS(new ItemStack(Items.REPEATING_COMMAND_BLOCK)),
 	MISC(new ItemStack(Items.NAUTILUS_SHELL)),
-	WORLD(new ItemStack(Items.GRASS_BLOCK));
+	WORLD(new ItemStack(Items.GRASS_BLOCK)),
+	LIVEOVERFLOW(new ItemStack(BleachHack.LIVEOVERFLOW));
 	
 	private final ItemStack item;
 	
