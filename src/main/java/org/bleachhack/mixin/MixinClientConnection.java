@@ -1,5 +1,5 @@
 /*
- * This file is part of the BleachHack distribution (https://github.com/BleachDrinker420/BleachHack/).
+ * This file is part of the BleachHack distribution (https://github.com/BleachDev/BleachHack/).
  * Copyright (c) 2021 Bleach and contributors.
  *
  * This source code is subject to the terms of the GNU General Public
@@ -8,7 +8,7 @@
  */
 package org.bleachhack.mixin;
 
-import net.minecraft.class_7648;
+import net.minecraft.network.PacketCallbacks;
 import org.bleachhack.BleachHack;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandManager;
@@ -47,13 +47,13 @@ public class MixinClientConnection {
 		}
 	}
 
-	@Inject(method = "method_10752(Lnet/minecraft/network/Packet;Lnet/minecraft/class_7648;)V", at = @At("HEAD"), cancellable = true)
-	private void send(Packet<?> packet, class_7648 packetCallback, CallbackInfo callback) {
+	@Inject(method = "send(Lnet/minecraft/network/Packet;Lnet/minecraft/network/PacketCallbacks;)V", at = @At("HEAD"), cancellable = true)
+	private void send(Packet<?> packet, PacketCallbacks packetCallback, CallbackInfo callback) {
 		if (packet instanceof ChatMessageC2SPacket) {
 			if (!CommandManager.allowNextMsg) {
 				ChatMessageC2SPacket pack = (ChatMessageC2SPacket) packet;
-				if (pack.comp_945().startsWith(Command.getPrefix())) {
-					CommandManager.callCommand(pack.comp_945().substring(Command.getPrefix().length()));
+				if (pack.chatMessage().startsWith(Command.getPrefix())) {
+					CommandManager.callCommand(pack.chatMessage().substring(Command.getPrefix().length()));
 					callback.cancel();
 				}
 			}
